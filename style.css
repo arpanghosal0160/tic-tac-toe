@@ -4,7 +4,7 @@
 }
 
 body{
-    background-color: #548587;
+    background-color: #d1aada;
     text-align: center;
 }
 
@@ -36,11 +36,27 @@ body{
     background-color: beige;
 }
 
-.resetb{
-    padding: 10px;
-    border-radius: 25px;
-    border: none;
+.resetb {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: 2px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
+
+.resetb:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.resetb:active {
+    background-color: #004085;
+    transform: scale(0.95);
+}
+
 
 #msg{
     color: antiquewhite;

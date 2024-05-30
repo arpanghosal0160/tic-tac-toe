@@ -1,5 +1,5 @@
 let boxes = document.querySelectorAll(".box");
-let resetbutton = document.querySelectorAll(".resetb");
+let resetButton = document.querySelector(".resetb");  // Corrected from querySelectorAll to querySelector
 let msg = document.querySelector(".msg");
 let msg1 = document.querySelector("#msg");
 
@@ -23,29 +23,50 @@ const showWinner = (winner) => {
 boxes.forEach((box) => {
     box.addEventListener("click", () => {
         console.log("box was clicked");
-        if(turnO) {
-            box.innerText = "O";
-            turnO = false;
-        } else{
-            box.innerText = "X";
-            turnO = true;
-        };
-        box.disabled = true;
-        checkWinner(); 
+        if (box.innerText === "") {
+            if (turnO) {
+                box.innerText = "O";
+                turnO = false;
+            } else {
+                box.innerText = "X";
+                turnO = true;
+            }
+            box.disabled = true;
+            checkWinner();
+        }
     });
 });
 
 const checkWinner = () => {
-    for(let pattern of winPatterns){
+    for (let pattern of winPatterns) {
         let pos1Val = boxes[pattern[0]].innerText;
         let pos2Val = boxes[pattern[1]].innerText;
         let pos3Val = boxes[pattern[2]].innerText;
-        if(pos1Val != "" && pos2Val !=""&& pos3Val !=""){
-            if(pos1Val === pos2Val && pos2Val === pos3Val){
-                console.log("Winner" ,pos1Val);
+        if (pos1Val !== "" && pos2Val !== "" && pos3Val !== "") {
+            if (pos1Val === pos2Val && pos2Val === pos3Val) {
+                console.log("Winner", pos1Val);
                 showWinner(pos1Val);
-            };
-        };
-    };
+                disableAllBoxes();
+                break;
+            }
+        }
+    }
 };
 
+const disableAllBoxes = () => {
+    boxes.forEach((box) => {
+        box.disabled = true;
+    });
+};
+
+const resetGame = () => {
+    boxes.forEach((box) => {
+        box.innerText = "";
+        box.disabled = false;
+    });
+    turnO = true;
+    msg.classList.add("hide");
+    msg1.innerText = "";
+};
+
+resetButton.addEventListener("click", resetGame);  // Corrected to use resetButton instead of resetbutton
